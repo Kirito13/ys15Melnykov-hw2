@@ -1,25 +1,24 @@
 package ua.yandex.shad.tries;
 
-
 import java.util.LinkedList;
-
 
 public class RWayTrie implements Trie {
 
-    private static final int ALPHABETsIZE = 26;
-    private static final char FIRSTeLEMENT = 'a';
+    private static final int ALPHABETSIZE = 26;
+    private static final char FIRSTELEMENT = 'a';
     private Node root;
-    
-    public RWayTrie () {
+
+    public RWayTrie() {
         root = new Node();
     }
 
     public static class Node {
+
         private int weight;
         private Node[] next;
-        
-        public Node(){
-            next = new Node[ALPHABETsIZE];
+
+        public Node() {
+            next = new Node[ALPHABETSIZE];
         }
     }
 
@@ -44,8 +43,8 @@ public class RWayTrie implements Trie {
             x.weight = weight;
             return x;
         }
-        int c = (term.charAt(d) - FIRSTeLEMENT);
-        if (x.next[c] == null){
+        int c = (term.charAt(d) - FIRSTELEMENT);
+        if (x.next[c] == null) {
             x.next[c] = new Node();
         }
         x.next[c] = add(x.next[c], t, d + 1);
@@ -69,14 +68,14 @@ public class RWayTrie implements Trie {
         if (d == word.length()) {
             return x;
         }
-        int c = word.charAt(d) - FIRSTeLEMENT;
+        int c = word.charAt(d) - FIRSTELEMENT;
         return contains(x.next[c], word, d + 1);
     }
 
     @Override
     public boolean delete(String word) {
         //throw new UnsupportedOperationException("Not supported yet.");
-        if (contains(word) == false) {
+        if (!contains(word)) {
             return false;
         }
         root = delete(root, word, 0);
@@ -84,21 +83,21 @@ public class RWayTrie implements Trie {
     }
 
     private Node delete(Node x, String word, int d) {
-        if (x == null) {
-            return null;
-        }
+        /*if (x == null) {
+         return null;
+         }*/
         if (d == word.length()) {
             x.weight = 0;
         } else {
-            int c = word.charAt(d) - FIRSTeLEMENT;
+            int c = word.charAt(d) - FIRSTELEMENT;
             x.next[c] = delete(x.next[c], word, d + 1);
         }
-
+        /*
         if (x.weight != 0) {
             return x;
-        }
+        }*/
 
-        for (int i = 0; i < ALPHABETsIZE; i++) {
+        for (int i = 0; i < ALPHABETSIZE; i++) {
             if (x.next[i] != null) {
                 return x;
             }
@@ -118,17 +117,17 @@ public class RWayTrie implements Trie {
         LinkedList<String> tempString = new LinkedList<String>();
         temp.add(x);
         tempString.add("");
-        while (temp.isEmpty() != true) {
+        while (!temp.isEmpty()) {
             String s = tempString.pollFirst();
             Node y = temp.pollFirst();
             if (y.weight != 0) {
                 answer.add(s);
             }
-            for (int i = 0; i < ALPHABETsIZE; i++) {
+            for (int i = 0; i < ALPHABETSIZE; i++) {
                 Node next = y.next[i];
                 if (next != null) {
                     temp.addLast(next);
-                    tempString.addLast(s + (char) (i + FIRSTeLEMENT));
+                    tempString.addLast(s + (char) (i + FIRSTELEMENT));
                     //System.out.print(tempString.getLast());
                 }
             }
@@ -142,7 +141,7 @@ public class RWayTrie implements Trie {
         LinkedList<String> noCheckAnswer = new LinkedList<String>();
         Node x = root;
         for (int i = 0; i < s.length(); i++) {
-            x = x.next[s.charAt(i) - FIRSTeLEMENT];
+            x = x.next[s.charAt(i) - FIRSTELEMENT];
             if (x == null) {
                 return noCheckAnswer;
             }
@@ -175,7 +174,7 @@ public class RWayTrie implements Trie {
             count++;
         }
 
-        for (int i = 0; i < ALPHABETsIZE; i++) {
+        for (int i = 0; i < ALPHABETSIZE; i++) {
             count += size(x.next[i]);
         }
         return count;
