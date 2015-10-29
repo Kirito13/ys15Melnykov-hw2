@@ -113,7 +113,7 @@ public class PrefixMatchesTest {
     }
     
     @Test
-    public void testWordsWithPrefixStringInt() {
+    public void testWordsWithPrefixStringIntBigCount() {
         System.out.println("wordsWithPrefixInt");
         String pref = "java";
         PrefixMatches memory = new PrefixMatches();
@@ -122,6 +122,21 @@ public class PrefixMatchesTest {
         Iterable<String> list = new LinkedList<String>(Arrays.asList("java",
                 "javac", "javah","javascript"));
         Iterable<String> answer = memory.wordsWithPrefix(pref,4);
+        LinkedList<String> expResult = (LinkedList)list;
+        LinkedList<String> actualResult = (LinkedList)answer;
+        assertListEquals(expResult, actualResult);
+    }
+    
+    @Test
+    public void testWordsWithPrefixStringInt() {
+        System.out.println("wordsWithPrefixInt");
+        String pref = "java";
+        PrefixMatches memory = new PrefixMatches();
+        memory.load("hello world with java", "javascript", "javac", "javah", 
+                "abcd", "abcde","abcdefgh","abce");
+        Iterable<String> list = new LinkedList<String>(Arrays.asList("java",
+                "javac", "javah"));
+        Iterable<String> answer = memory.wordsWithPrefix(pref,2);
         LinkedList<String> expResult = (LinkedList)list;
         LinkedList<String> actualResult = (LinkedList)answer;
         assertListEquals(expResult, actualResult);

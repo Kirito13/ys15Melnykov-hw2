@@ -106,7 +106,19 @@ public class RWayTrieTest {
         Tuple t = new Tuple("java", 4);
         tree.add(t);
         boolean expResult = false;
-        boolean actualResult = tree.delete("cplusplus");
+        boolean actualResult = tree.delete("javascript");
+        assertEquals(expResult, actualResult);
+    }
+    
+     @Test
+    public void testDeleteWithNull() {
+        RWayTrie tree = new RWayTrie();
+        Tuple t = new Tuple("java", 4);
+        Tuple y = new Tuple("javac", 5);
+        tree.add(t);
+        tree.add(y);
+        boolean expResult = true;
+        boolean actualResult = tree.delete("java");
         assertEquals(expResult, actualResult);
     }
     

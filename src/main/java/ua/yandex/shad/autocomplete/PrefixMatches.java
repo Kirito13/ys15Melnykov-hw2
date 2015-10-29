@@ -15,9 +15,9 @@ import java.util.LinkedList;
  * @author andrii
  */
 public class PrefixMatches {
-
+    
+    private final int DEF_PREF = 3;
     private Trie trie;
-    private final static int DEF_PREF = 3;
 
     public PrefixMatches() {
         trie = new RWayTrie();
