@@ -31,14 +31,16 @@ public class RWayTrie implements Trie {
     }
 
     private Node add(Node x, Tuple t, int d) {
+        String term = t.getTerm();
+        int weight = t.getWeight();
         if (x == null) {
             x = new Node();
         }
-        if (d == t.weight) {
-            x.weight = t.weight;
+        if (d == weight) {
+            x.weight = weight;
             return x;
         }
-        int c = (t.term.charAt(d) - FIRST_ELEMENT);
+        int c = (term.charAt(d) - FIRST_ELEMENT);
         x.next[c] = add(x.next[c], t, d + 1);
         return x;
     }

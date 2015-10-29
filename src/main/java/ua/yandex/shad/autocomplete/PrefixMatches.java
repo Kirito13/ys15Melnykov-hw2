@@ -8,9 +8,7 @@ package ua.yandex.shad.autocomplete;
 import ua.yandex.shad.tries.Tuple;
 import ua.yandex.shad.tries.Trie;
 import ua.yandex.shad.tries.RWayTrie;
-import java.util.AbstractQueue;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  *
@@ -19,6 +17,7 @@ import java.util.Queue;
 public class PrefixMatches {
 
     private Trie trie;
+    private final static int DEF_PREF = 3;
 
     public PrefixMatches() {
         trie = new RWayTrie();
@@ -28,8 +27,8 @@ public class PrefixMatches {
         //throw new UnsupportedOperationException("Not supported yet.");
         int sizeM = 0;
         for (String element : strings) {
-            String[] M = element.split(" ");
-            for (String word : M) {
+            String[] array = element.split(" ");
+            for (String word : array) {
                 if (word.length() > 2) {
                     trie.add(new Tuple(word, word.length()));
                     sizeM++;
@@ -51,7 +50,7 @@ public class PrefixMatches {
 
     public Iterable<String> wordsWithPrefix(String pref) {
         //throw new UnsupportedOperationException("Not supported yet.");
-        return wordsWithPrefix(pref, 3);
+        return wordsWithPrefix(pref, DEF_PREF);
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
