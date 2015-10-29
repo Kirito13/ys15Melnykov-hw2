@@ -15,8 +15,8 @@ import java.util.LinkedList;
  * @author andrii
  */
 public class PrefixMatches {
-    
-    private final int DEF_PREF = 3;
+
+    private final static int DEFpREF = 3;
     private Trie trie;
 
     public PrefixMatches() {
@@ -50,7 +50,7 @@ public class PrefixMatches {
 
     public Iterable<String> wordsWithPrefix(String pref) {
         //throw new UnsupportedOperationException("Not supported yet.");
-        return wordsWithPrefix(pref, DEF_PREF);
+        return wordsWithPrefix(pref, DEFpREF);
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {

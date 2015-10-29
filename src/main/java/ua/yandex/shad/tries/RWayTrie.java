@@ -1,29 +1,36 @@
 package ua.yandex.shad.tries;
 
-import java.util.AbstractQueue;
+
 import java.util.LinkedList;
-import java.util.Queue;
+
 
 public class RWayTrie implements Trie {
 
-    private final static int ALPHABET_SIZE = 26;
-    private final static char FIRST_ELEMENT = 'a';
+    private static final int ALPHABETsIZE = 26;
+    private static final char FIRSTeLEMENT = 'a';
     private Node root;
+    
+    public RWayTrie () {
+        root = new Node();
+    }
 
     public static class Node {
-        public int weight;
-        public Node[] next = new Node[ALPHABET_SIZE];
+        private int weight;
+        private Node[] next;
+        
+        public Node(){
+            next = new Node[ALPHABETsIZE];
+        }
     }
 
     //have problem with testing method add(private or public)....
     /*
-    public Node getroot() {
-        Node x = new Node();
-        x.weight = root.weight;
-        x.next = root.next;
-        return x;
-    }*/
-
+     public Node getroot() {
+     Node x = new Node();
+     x.weight = root.weight;
+     x.next = root.next;
+     return x;
+     }*/
     @Override
     public void add(Tuple t) {
         //throw new UnsupportedOperationException("Not supported yet.");
@@ -33,14 +40,14 @@ public class RWayTrie implements Trie {
     private Node add(Node x, Tuple t, int d) {
         String term = t.getTerm();
         int weight = t.getWeight();
-        if (x == null) {
-            x = new Node();
-        }
         if (d == weight) {
             x.weight = weight;
             return x;
         }
-        int c = (term.charAt(d) - FIRST_ELEMENT);
+        int c = (term.charAt(d) - FIRSTeLEMENT);
+        if (x.next[c] == null){
+            x.next[c] = new Node();
+        }
         x.next[c] = add(x.next[c], t, d + 1);
         return x;
     }
@@ -62,7 +69,7 @@ public class RWayTrie implements Trie {
         if (d == word.length()) {
             return x;
         }
-        int c = word.charAt(d) - FIRST_ELEMENT;
+        int c = word.charAt(d) - FIRSTeLEMENT;
         return contains(x.next[c], word, d + 1);
     }
 
@@ -83,7 +90,7 @@ public class RWayTrie implements Trie {
         if (d == word.length()) {
             x.weight = 0;
         } else {
-            int c = word.charAt(d) - FIRST_ELEMENT;
+            int c = word.charAt(d) - FIRSTeLEMENT;
             x.next[c] = delete(x.next[c], word, d + 1);
         }
 
@@ -91,7 +98,7 @@ public class RWayTrie implements Trie {
             return x;
         }
 
-        for (int i = 0; i < ALPHABET_SIZE; i++) {
+        for (int i = 0; i < ALPHABETsIZE; i++) {
             if (x.next[i] != null) {
                 return x;
             }
@@ -111,17 +118,17 @@ public class RWayTrie implements Trie {
         LinkedList<String> tempString = new LinkedList<String>();
         temp.add(x);
         tempString.add("");
-        while(temp.isEmpty() != true) {
+        while (temp.isEmpty() != true) {
             String s = tempString.pollFirst();
             Node y = temp.pollFirst();
-            if(y.weight != 0) {
+            if (y.weight != 0) {
                 answer.add(s);
             }
-            for (int i = 0; i < ALPHABET_SIZE; i++){
+            for (int i = 0; i < ALPHABETsIZE; i++) {
                 Node next = y.next[i];
                 if (next != null) {
                     temp.addLast(next);
-                    tempString.addLast(s + (char)(i + FIRST_ELEMENT));
+                    tempString.addLast(s + (char) (i + FIRSTeLEMENT));
                     //System.out.print(tempString.getLast());
                 }
             }
@@ -134,18 +141,18 @@ public class RWayTrie implements Trie {
         //throw new UnsupportedOperationException("Not supported yet.");
         LinkedList<String> noCheckAnswer = new LinkedList<String>();
         Node x = root;
-        for (int i = 0; i < s.length(); i++){
-            x = x.next[s.charAt(i) - FIRST_ELEMENT];
+        for (int i = 0; i < s.length(); i++) {
+            x = x.next[s.charAt(i) - FIRSTeLEMENT];
             if (x == null) {
                 return noCheckAnswer;
             }
         }
-        noCheckAnswer = (LinkedList<String>)takeWords(x);
+        noCheckAnswer = (LinkedList<String>) takeWords(x);
         //System.out.println(noCheckAnswer.size());
         LinkedList<String> finalAnswer = new LinkedList<String>();
-        String element = new String("");
+        String element = "";
         int count = noCheckAnswer.size();
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             element = noCheckAnswer.pollFirst();
             finalAnswer.addLast(s + element);
         }
@@ -158,17 +165,17 @@ public class RWayTrie implements Trie {
         //throw new UnsupportedOperationException("Not supported yet.");
         return size(root);
     }
-    
+
     private int size(Node x) {
-        if(x == null) {
+        if (x == null) {
             return 0;
         }
         int count = 0;
-        if(x.weight != 0) {
+        if (x.weight != 0) {
             count++;
         }
-        
-        for(int i = 0; i < ALPHABET_SIZE; i++){
+
+        for (int i = 0; i < ALPHABETsIZE; i++) {
             count += size(x.next[i]);
         }
         return count;

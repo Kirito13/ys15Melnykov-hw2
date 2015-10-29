@@ -23,30 +23,29 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import ua.yandex.shad.tries.Tuple;
 
-
 /**
  *
  * @author Мел
  */
 @RunWith(MockitoJUnitRunner.class)
 public class RWayTrieTest {
-    
-/*
-    @Test
-    public void testAdd() {
-        RWayTrie tree = new RWayTrie();
-        Tuple t = new Tuple("java", 4);
-        tree.add(t);
-        int expResult = 4;
-        int actualResult = tree.getroot().next['j'-'a'].next['a'-'a'].next['v' - 'a'].next['a'-'a'].weight;
-        assertEquals(expResult, actualResult);
-    }*/
-    public void assertListEquals(LinkedList<String> expResult, 
+
+    /*
+     @Test
+     public void testAdd() {
+     RWayTrie tree = new RWayTrie();
+     Tuple t = new Tuple("java", 4);
+     tree.add(t);
+     int expResult = 4;
+     int actualResult = tree.getroot().next['j'-'a'].next['a'-'a'].next['v' - 'a'].next['a'-'a'].weight;
+     assertEquals(expResult, actualResult);
+     }*/
+    public void assertListEquals(LinkedList<String> expResult,
             LinkedList<String> actualResult) {
         if (expResult.size() != actualResult.size()) {
-            throw new AssertionError("the lenghts of expList:" + 
-                    Integer.toString(expResult.size()) + 
-                    " and actualList, are different");
+            throw new AssertionError("the lenghts of expList:"
+                    + Integer.toString(expResult.size())
+                    + " and actualList, are different");
         }
         for (String expResult1 : expResult) {
             if (!(actualResult.contains(expResult1))) {
@@ -55,7 +54,7 @@ public class RWayTrieTest {
             }
         }
     }
-    
+
     @Test
     public void testContains() {
         RWayTrie tree = new RWayTrie();
@@ -65,7 +64,7 @@ public class RWayTrieTest {
         boolean actualResult = tree.contains("java");
         assertEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testContainsWithNoWord() {
         RWayTrie tree = new RWayTrie();
@@ -75,7 +74,7 @@ public class RWayTrieTest {
         boolean actualResult = tree.contains("cplusplus");
         assertEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testContainsWithManyWords() {
         RWayTrie tree = new RWayTrie();
@@ -89,7 +88,7 @@ public class RWayTrieTest {
         boolean actualResult = tree.contains("java");
         assertEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testDelete() {
         RWayTrie tree = new RWayTrie();
@@ -99,7 +98,7 @@ public class RWayTrieTest {
         boolean actualResult = tree.delete("java");
         assertEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testDeleteWithNoWord() {
         RWayTrie tree = new RWayTrie();
@@ -109,8 +108,8 @@ public class RWayTrieTest {
         boolean actualResult = tree.delete("javascript");
         assertEquals(expResult, actualResult);
     }
-    
-     @Test
+
+    @Test
     public void testDeleteWithNull() {
         RWayTrie tree = new RWayTrie();
         Tuple t = new Tuple("java", 4);
@@ -121,7 +120,7 @@ public class RWayTrieTest {
         boolean actualResult = tree.delete("java");
         assertEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testWords() {
         RWayTrie tree = new RWayTrie();
@@ -142,10 +141,10 @@ public class RWayTrieTest {
         expResult.add("cplusplus");
         expResult.add("javascript");
         Iterable<String> result = tree.words();
-        LinkedList<String> actualResult = (LinkedList)result;
+        LinkedList<String> actualResult = (LinkedList) result;
         assertListEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testWordsWithPrefix() {
         RWayTrie tree = new RWayTrie();
@@ -164,10 +163,10 @@ public class RWayTrieTest {
         expResult.add("java");
         expResult.add("javascript");
         Iterable<String> result = tree.wordsWithPrefix("jav");
-        LinkedList<String> actualResult = (LinkedList)result;
+        LinkedList<String> actualResult = (LinkedList) result;
         assertListEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testWordsWithPrefixWithNoWords() {
         RWayTrie tree = new RWayTrie();
@@ -183,10 +182,10 @@ public class RWayTrieTest {
         tree.add(o);
         LinkedList<String> expResult = new LinkedList<String>();
         Iterable<String> result = tree.wordsWithPrefix("javac");
-        LinkedList<String> actualResult = (LinkedList)result;
+        LinkedList<String> actualResult = (LinkedList) result;
         assertListEquals(expResult, actualResult);
     }
-    
+
     @Test
     public void testSize() {
         RWayTrie tree = new RWayTrie();
