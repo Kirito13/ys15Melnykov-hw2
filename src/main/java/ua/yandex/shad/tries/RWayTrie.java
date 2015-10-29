@@ -6,12 +6,11 @@ import java.util.Queue;
 
 public class RWayTrie implements Trie {
 
-    private final int ALPHABET_SIZE = 26;
-    private final char FIRST_ELEMENT = 'a';
+    private final static int ALPHABET_SIZE = 26;
+    private final static char FIRST_ELEMENT = 'a';
     private Node root;
 
-    public class Node {
-
+    public static class Node {
         public int weight;
         public Node[] next = new Node[ALPHABET_SIZE];
     }
@@ -142,7 +141,7 @@ public class RWayTrie implements Trie {
         noCheckAnswer = (LinkedList<String>)takeWords(x);
         //System.out.println(noCheckAnswer.size());
         LinkedList<String> finalAnswer = new LinkedList<String>();
-        String element = new String();
+        String element = new String("");
         int count = noCheckAnswer.size();
         for (int i = 0; i < count; i++){
             element = noCheckAnswer.pollFirst();
